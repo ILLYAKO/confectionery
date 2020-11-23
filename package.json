@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "server": "nodemon app.js"
+    "server": "nodemon app.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [
     "mern",
@@ -16,8 +18,15 @@
   "author": "Illya K",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "bootstrap": "^4.5.3",
+    "config": "^3.3.2",
     "express": "^4.17.1",
-    "mongose": "0.0.2-security"
+    "express-validator": "^6.6.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.15",
+    "mongose": "0.0.2-security",
+    "react-bootstrap": "^1.4.0"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",

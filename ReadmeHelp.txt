@@ -19,10 +19,8 @@ git commit -m "first commit"
 git remote add origin https://github.com/ILLYAKO/confectionery.git
 git push -u origin master
 
-
-
 3. Install express node, mongo DB
-npm install express mongose
+npm install express mongoose
 
 4. Install nodemon concurrently in Developent stage
 npm install -D nodemon concurrently
@@ -36,3 +34,88 @@ npm install -D nodemon concurrently
 
 6. Run server
 npm run server
+
+7. Server exit
+Ctrl+C
+
+8. Config 9:31
+npm i config
+8.1 Create folder /config
+
+8.2 Create file /config/default.json
+{
+  "port": 5000
+}
+
+9.Conection to mongoose
+const mongose = require("mongoose");
+
+9.1 Sign In mongodb.com
+context->New Project-> Project name-> confectionery -> Create Project -> 
+-> Build Cluster -> Create a cluster FREE -> Cloud "Azure" -> Toronto ->
+-> Create Cluster -> CONNECT ->Add Your Current IP Adress -> Add IP Address
+Username: IllyaAdmin
+Password: Test123
+-> Create Database User -> Choose a connection method
+-> Connect Your Application -> Add your connection striing into your application code -> Copy -> Close
+mongodb+srv://IllyaAdmin:<password>@cluster0.uiyyc.mongodb.net/<dbname>?retryWrites=true&w=majority
+"mongoUri":"mongodb+srv://IllyaAdmin:Test123@cluster0.uiyyc.mongodb.net/app?retryWrites=true&w=majority"
+
+10. Routes 20:48
+Create new folder /routes
+
+11. Models 26:30
+Create /model/User.js
+
+12. bcrypt.js
+npm i bcryptjs
+
+13 Validator
+npm i express-validator
+
+14. Json Web Token
+npm i jsonwebtoken
+
+15. Create React Application
+npx create-react-app client
+cd client
+rm node_modules
+
+16. Install in /client
+npm i
+
+17. package.json
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "server": "nodemon app.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+
+18 Start client-side and server from server folder.
+cd.. // go up
+npm run dev
+
+19. Bootstrap
+npm install react-bootstrap bootstrap
+
+20. React Router
+cd client
+npm i react-router-dom
+
+21 Forms
+
+22. Hook 1:18:44
+
+23. Proxy in client/package.json
+"proxy": "http://localhost:5000",
+
+1:33:06
+
+24. Toast 1:38;24
+
+1:44:21
+
+
+
