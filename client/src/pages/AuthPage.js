@@ -1,104 +1,95 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { useState, useEffect } from "react";
 import { useHttp } from "../hooks/http.hook";
-// import { useMessage } from "../hooks/message.hook";
-import { ToastW } from "../component/ToastW";
+import { useMessage } from "../hooks/message.hook";
+import { AuthContext } from "../context/AuthContext";
 
 export const AuthPage = () => {
-  // const message = useMessage();
-
+  const auth = useContext(AuthContext);
+  const message = useMessage();
   const { loading, request, error, clearError } = useHttp();
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setform] = useState({
+    email: "",
+    password: "",
+  });
 
-  // useEffect(() => {
-  //   setShowToast(true);
-  //   message(error);
-  //   clearError();
-  // }, [error, message, clearError, Toast]);
+  useEffect(() => {
+    console.log("Eror", error);
+    message(error);
+    clearError();
+  }, [error, message, clearError]);
+
+  useEffect(() => {
+    window.M.updateTextFields();
+  }, []);
 
   const changeHandler = (event) => {
-    setForm(
-      { ...form, [event.target.name]: event.target.value }
-      // console.log("Changes", event.target.value)
-    );
+    setform({ ...form, [event.target.name]: event.target.value });
   };
   const registerHandler = async () => {
     try {
       const data = await request("/api/auth/register", "POST", { ...form });
+      message(data.message);
+      console.log("Data", data);
+    } catch (e) {}
+  };
+  const loginHandler = async () => {
+    try {
+      const data = await request("/api/auth/login", "POST", { ...form });
+      // message(data.message);
+      auth.login(data.token, data.userId);
       console.log("Data", data);
     } catch (e) {}
   };
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-auto">
-          <h1>Short Links</h1>
-          {/* Toast */}
-          {/* <Toast show={false} error={error} clearError={clearError}></Toast> */}
-          <ToastW show={error?true:false} error={error}></ToastW>
-
-          {/* Toast */}
-          {/* <div className="card" style="width: 18rem;"> */}
-          <div
-            className="card bg-primary text-white"
-            style={{ width: "25rem" }}
-          >
-            {/* <img className="card-img-top" src="..." alt="Card cap" /> */}
-            <div className="card-body">
-              <h5 className="card-title">Authorization</h5>
-              <form>
-                <div className="form-group">
-                  <label htmlFor="email">Email address</label>
-                  <input
-                    placeholder="Enter email"
-                    id="email"
-                    type="email"
-                    className="form-control"
-                    name="email"
-                    onChange={changeHandler}
-                  />
-                  <small id="emailHelp" className="form-text text-muted">
-                    We'll never share your email with anyone else.
-                  </small>
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <input
-                    placeholder="Enter Password"
-                    id="password"
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    onChange={changeHandler}
-                    disabled={loading}
-                  />
-                  <small id="emailHelp" className="form-text text-muted">
-                    At lest 6 symbols.
-                  </small>
-                </div>
-              </form>
-              {/* 
-              <p className="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p> */}
-              <div className="card-action">
-                <button className="btn btn-warning mr-2">Login</button>
-                <button
-                  className="btn btn-secondary"
-                  onClick={registerHandler}
-                  disabled={loading}
-                >
-                  Singin
-                </button>
-
-                {/* 
-                <a href="/" className="btn btn-danger">
-                  Go somewhere
-                </a> */}
-              </div>
+    <div className="row">
+      <div className="col s12 m6">
+        <h1>Short Link</h1>
+        <div className="card blue darken-1">
+          <div className="card-content white-text">
+            <span className="card-title">Authorization</span>
+            <div className="input-field">
+              <input
+                placeholder="Enter your email"
+                id="email"
+                type="text"
+                name="email"
+                className="yellow-input"
+                value={form.email}
+                onChange={changeHandler}
+              />
+              <label htmlFor="email">Email</label>
             </div>
+            <div className="input-field">
+              <input
+                placeholder="Enter password"
+                id="password"
+                type="password"
+                name="password"
+                className="yellow-input"
+                value={form.password}
+                onChange={changeHandler}
+              />
+              <label htmlFor="password">Password</label>
+            </div>
+          </div>
+          <div className="card-action">
+            <button
+              className="btn yellow darken-4"
+              style={{ marginRight: 10 }}
+              onClick={loginHandler}
+              disabled={loading}
+            >
+              Login
+            </button>
+            <button
+              className="btn grey lighten-1 black-text"
+              onClick={registerHandler}
+              disabled={loading}
+            >
+              Register
+            </button>
           </div>
         </div>
       </div>

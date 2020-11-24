@@ -99,6 +99,8 @@ npm run dev
 
 19. Bootstrap
 npm install react-bootstrap bootstrap
+or
+npm i materialize-css
 
 20. React Router
 cd client
@@ -115,7 +117,7 @@ npm i react-router-dom
 
 24. Toast 1:38;24
 
-1:44:21
+1:46:13
 
 
 
